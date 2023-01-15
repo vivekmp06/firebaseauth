@@ -6,15 +6,15 @@ export default function Header() {
   const navigate = useNavigate();
 
   function pathMathRoute(route){
-    if(route  ==location.pathname){
+    if(route  ===location.pathname){
       return true;
     }
   }
   return (
     <div className='bg-white border-b shadow-sm sticky top-0 z-50'>
-      <header className='flex justify-between item-center px-3 max-w-6xl mx-auto'>
+      <header className='flex justify-between items-center px-3 max-w-6xl mx-auto'>
         <div>
-          <img src='' className='h-5 cursor-pointer'  alt='Logo' onClick={()=>navigate("/")}/> 
+          <img src='https://static.rdc.moveaws.com/images/logos/rdc-logo-default.svg' className='h-5 cursor-pointer'  alt='Logo' onClick={()=>navigate("/")}/> 
         </div>
         <div>
           <ul className='flex space-x-10'>
