@@ -1,7 +1,10 @@
 import { useState } from "react"
-import {Link} from "react-router-dom"
+import {Link, Navigate, useNavigate} from "react-router-dom"
 import {AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import OAuth from "../components/OAuth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {toast} from "react-toastify";
+ 
 
 export default function SignIn() {
 
@@ -11,6 +14,7 @@ export default function SignIn() {
    
 
   const {email,password} = {formData};
+  const navigate = useNavigate();
 
   function handleChange(e){
     setFormData((prevState)=>({
@@ -18,6 +22,22 @@ export default function SignIn() {
       [e.target.id]: e.target.value
       
     }));
+  }
+  async function handleSignIn(e){
+    //prevent page from loading 
+    console.log("sign in func called");
+    e.preventDefault();
+    try{
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth,formData.email,formData.password);
+      if(userCredential.user){
+        navigate("/");
+      }
+
+    }
+    catch(error){
+        console.log(error)
+    }
   }
 
   return (
@@ -31,7 +51,7 @@ export default function SignIn() {
           </div>
 
           <div  className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
-            <form>
+            <form onSubmit={handleSignIn}>
                 <input className="mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out  " type="email" id="email" placeholder="Email address"  value={email} onChange={handleChange}  />
                 <div className="relative mb-6">
                   <input className="w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out  " type={showPassword ? "text" :"password"} id="password" placeholder="Password"  value={password} onChange={handleChange}  />
@@ -53,8 +73,9 @@ export default function SignIn() {
                   <p className="text-center font-semibold mx-4">OR</p>
                 </div>
 
-                <OAuth/>
-            </form>              
+                
+            </form>  
+            <OAuth/>            
           </div>
       </div>
     </section>
