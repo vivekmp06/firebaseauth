@@ -25,18 +25,20 @@ export default function SignIn() {
   }
   async function handleSignIn(e){
     //prevent page from loading 
-    console.log("sign in func called");
+    // console.log("sign in func called");
     e.preventDefault();
     try{
       const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth,formData.email,formData.password);
+      toast.success("Sign in was Successful");
       if(userCredential.user){
         navigate("/");
       }
 
     }
     catch(error){
-        console.log(error)
+      toast.error("Invalid Credentials");
+      // console.log(error);
     }
   }
 

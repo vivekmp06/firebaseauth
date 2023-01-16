@@ -36,7 +36,7 @@ export default function SignUp() {
         //Adding Name to the User Firebase Object
         updateProfile(auth.currentUser,{displayName:formData.name})
         const user  = userCredential.user;
-        console.log(user);
+        // console.log(user);
         const formDataCopy = {...formData}
         delete formDataCopy.password;
         formDataCopy.timestamp = serverTimestamp();
