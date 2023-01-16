@@ -85,8 +85,9 @@ export default function SignUp() {
                   <p className="text-center font-semibold mx-4">OR</p>
                 </div>
 
-                <OAuth/>
+
             </form>              
+                <OAuth/>
           </div>
       </div>
     </section>
